@@ -1,0 +1,42 @@
+<div class="w-50 m-auto">
+    <h2 class="my-4">Register Form</h2>
+    <div *ngIf='flag' class="alert alert-danger m-auto">
+        <p>This Email Is Already Exist</p>
+    </div>
+<form action="" [formGroup]='registerForm' (ngSubmit)='getRegisterInfo(registerForm)'>
+
+
+    <div class="form-group">
+        <label for="">FirstName :</label>
+        <input [class.is-valid] = "registerForm.get('first_name').errors == null &&registerForm.get('first_name').touched" formControlName='first_name' type="text" class="form-control" >
+        <p class="py-2 text-danger" *ngIf="registerForm.get('first_name').errors != null &&registerForm.get('first_name').touched  "  >FirstName Invalid</p>
+        </div>
+
+
+    
+    <div class="form-group">
+        <label for="">LastName :</label>
+        <input [class.is-valid] = "registerForm.get('last_name').errors == null &&registerForm.get('last_name').touched" formControlName='last_name' type="text" class="form-control">
+        <p *ngIf="registerForm.get('last_name').errors != null &&registerForm.get('last_name').touched  " class="py-2 text-danger">lastName Invalid</p>
+        </div>
+
+
+    
+        <div class="form-group">
+            <label for="">Email :</label>
+            <input [class.is-valid] = "registerForm.get('email').errors == null &&registerForm.get('email').touched" formControlName='email' type="email" class="form-control">
+            <p *ngIf="registerForm.get('email').errors != null &&registerForm.get('email').touched  "  class="py-2 text-danger">Email Invalid</p>
+            </div>
+    
+
+    
+            <div class="form-group">
+                <label for="">Password :</label>
+                <input [class.is-valid] = "registerForm.get('password').errors == null &&registerForm.get('password').touched" formControlName='password' type="password" class="form-control">
+                <p *ngIf="registerForm.get('password').errors != null &&registerForm.get('password').touched  "  class="py-2 text-danger">password Invalid</p>
+                </div>
+            <div class="text-center mb-4">
+                 <button [disabled]='registerForm.invalid' type="submit" class="btn btn-mine text-white d-inline">Register</button>
+            </div>
+</form>
+</div>
