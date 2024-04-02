@@ -9,6 +9,7 @@ import{Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   flag:boolean=false;
+  isLoading: boolean = false;
 
   constructor(private _AuthService:AuthService,private _Router:Router) {
     if(localStorage.getItem('userData')!=null){
@@ -20,14 +21,19 @@ export class RegisterComponent implements OnInit {
 
 
   getRegisterInfo(registerForm){
+    this.isLoading=true;
+
     if(registerForm.valid == true){
       this._AuthService.register(registerForm.value).subscribe((data)=>{
         if(data.message=='success'){
+          this.isLoading=true;
           this._Router.navigate(['/login'])
         }
         else
         {
           this.flag=true;
+          this.isLoading=true;
+
         }
       })
     }
@@ -35,12 +41,23 @@ export class RegisterComponent implements OnInit {
 
 
   registerForm:FormGroup = new FormGroup({
-    'first_name':new FormControl( null , [Validators.required , Validators.minLength(3) , Validators.maxLength(8) ]),
-    'last_name':new FormControl(null , [Validators.required]),
+    'name':new FormControl( null , [Validators.required , Validators.minLength(3) , Validators.maxLength(8) ]),
     'email':new FormControl(null,[Validators.email]),
-    'password':new FormControl(null,[Validators.required ])
+    'password':new FormControl(null,[Validators.required ]),
+    'rePassword':new FormControl(null,[Validators.required ]),
+    'phone': new FormControl(null, [
+      Validators.required,
+      Validators.pattern(/^01[0125][0-9]{8}$/),
+    ])
 
-  });
+  },this.confirmPasswordMethod);
+  confirmPasswordMethod(pw: any) {
+    if (pw.get('password')?.value == pw.get('rePassword')?.value) {
+      return null;
+    } else {
+      return { matchedPassword: true };
+    }
+  }
 
 
   ngOnInit(): void {

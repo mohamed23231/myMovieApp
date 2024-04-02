@@ -10,6 +10,7 @@ import{Router} from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  isLoading: boolean = false;
 
   constructor(private _AuthService:AuthService,private _Router:Router) {
    }
@@ -21,15 +22,21 @@ export class LoginComponent implements OnInit {
    errorMessage:string;
 
    getLoginInfo(loginForm){
+     this.isLoading=true;
       this._AuthService.login(loginForm.value).subscribe((data)=>{
         if(data.message=='success'){
-          this._AuthService.saveCurrentUser(data.user.first_name,data.user.last_name,data.user.email,data.token)
+          console.log(data.message)
+          this._AuthService.saveCurrentUser(data.user.name,data.user.email,data.token)
+          this.isLoading=false;
           this._Router.navigate(['/home'])
+          
         }
         else
         {
           this.flag=true;
           this.errorMessage =data.message
+          this.isLoading=false;
+
         }
       })
   }

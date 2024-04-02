@@ -24,6 +24,7 @@ export class AuthGuard implements CanActivate {
 
 
       }else{
+        console.log('gard issue')
         this._Router.navigate(['./login'])
         return false
 

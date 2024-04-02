@@ -1,3 +1,8 @@
+
+<div *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  
 <div class="w-50 m-auto">
     <h2 class="my-4">Login Form</h2>
 <form action="" [formGroup]='loginForm' (ngSubmit)='getLoginInfo(loginForm)'>

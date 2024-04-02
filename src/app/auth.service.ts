@@ -12,7 +12,7 @@ export class AuthService {
 
   currentUser:any  =new BehaviorSubject(null);
 
-
+baseUrl:string='https://ecommerce.routemisr.com/api/v1/auth/';
 
   constructor(private _HttpClient:HttpClient , private _Router:Router) {
 
@@ -36,16 +36,16 @@ export class AuthService {
 
     register(registerFormValue):Observable<any>
     {
-      return this._HttpClient.post('https://routeegypt.herokuapp.com/signup',registerFormValue)
+      return this._HttpClient.post(`${this.baseUrl}signup`,registerFormValue)
     }
-
+//https://routeegypt.herokuapp.com/signup
     login(loginFormValue):Observable<any>
     {
-      return this._HttpClient.post('https://routeegypt.herokuapp.com/signin',loginFormValue)
+      return this._HttpClient.post(`${this.baseUrl}signin`,loginFormValue)
     }
 
-    saveCurrentUser(first_name , last_name , email, token){
-      let user = new userData(first_name , last_name ,email, token);
+    saveCurrentUser(name  , email, token){
+      let user = new userData(name ,email, token);
       localStorage.setItem('userData',JSON.stringify(user))
       this.currentUser.next(user)
     }

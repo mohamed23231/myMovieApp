@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { TvComponent } from './tv/tv.component';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
  
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {HttpClientModule} from '@angular/common/http';
     NotfoundComponent,
     PeopleComponent,
     RegisterComponent,
-    TvComponent
+    TvComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
